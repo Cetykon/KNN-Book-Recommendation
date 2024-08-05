@@ -40,6 +40,7 @@ class VectorCreator(VectorCreatorInterface):
         for column in transposed_array:
             # Calculate the average for the column
             column_average = sum(column) / len(column)
+            # add the column average to the array/vector
             averages.append(column_average)
         
         return averages
@@ -56,6 +57,7 @@ books_read_array_examples = [
 modes = vector_creator.mode_vector(books_read_array_examples)
 print("Modes of each column:", modes)
 
+# The average vector doesn't make sense in the book recommendation system, but we can still use it to test results
 averages = vector_creator.average_vector(books_read_array_examples)
 print("Averages of each column:", averages)
 
