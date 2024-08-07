@@ -1,16 +1,29 @@
 import React from "react";
 import rateIcon from './images/rate-icon.svg';
 import {Card, Col, Container, Row} from "react-bootstrap";
+import {Book} from "./interfaces/recommendationInterfaces.ts";
+import {useStore} from "./store/searchStore.ts";
 
-function SearchResults(params: {books: {title: string, image: string}[]}) {
+function SearchResults() {
 
-    const card = (params:{image: string, title: string}, index: number) => {
+    const books = useStore((state) => state.filteredBooks);
+    const selectedBooks = useStore((state) => state.selectedBooks);
+    const setSelectedBooks = useStore((state) => state.setSelectedBooks);
+
+
+    const card = (params:Book, index: number) => {
         return (
             <Col sm={6} lg={3} xl={2} className="p-2" key={index}>
                 <Card border="0" style={{backgroundColor: 'white'}}>
-                    <Card.Img src={params.image} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
+                    <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
                     <Card.Footer style={{backgroundColor: 'white'}}>
-                        <button className="btn rate-button d-flex justify-content-center align-items-center">
+                        <button className="btn rate-button d-flex justify-content-center align-items-center"
+                        onClick={() => {
+                            if(!selectedBooks.includes(params)) {
+                                setSelectedBooks([...selectedBooks, params]);
+                            }
+                        }}
+                        >
                             <img src={rateIcon} style={{paddingRight: '.5rem'}} alt="Rate Icon" />
                             Rate
                         </button>
@@ -27,8 +40,10 @@ function SearchResults(params: {books: {title: string, image: string}[]}) {
             </div>
             <Container>
                 <Row>
-                    {params.books.map ((book, index) => {
-                        return card(book, index);
+                    {books.map ((book, index) => {
+                        if (index < 6 ){
+                            return card(book, index);
+                        }
                     })}
                 </Row>
             </Container>

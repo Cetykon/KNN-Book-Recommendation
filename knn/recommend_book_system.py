@@ -1,14 +1,15 @@
 import csv
 
+from knn.knn_implementation import euclidean_distance, knn
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
-from knn_implementation import knn, euclidean_distance
-from feature_vector_implementation import VectorCreator
+from knn.feature_vector_implementation import VectorCreator
 
-def recommend_books(movie_query, k_recommendations):
+
+def recommend_books(book_query, k_recommendations):
     raw_book_data = []
 
     # Using the CSV reader keeps us from skipping rows that have extra commas
-    with open('../datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
+    with open('./datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
         csv_reader = csv.reader(md)
         # Discard the first line (headings)
         next(csv_reader)
@@ -25,11 +26,10 @@ def recommend_books(movie_query, k_recommendations):
         data_row = list(map(float, row[1:]))
         books_recommendation_data.append(data_row)
 
-
     # Use the KNN algorithm to get the 5 books that are most
     # similar to The Post.
     recommendation_indices, _ = knn(
-        books_recommendation_data, movie_query, k=k_recommendations,
+        books_recommendation_data, book_query, k=k_recommendations,
         distance_fn=euclidean_distance, choice_fn=lambda x: None
     )
 
@@ -38,6 +38,7 @@ def recommend_books(movie_query, k_recommendations):
         book_recommendations.append(raw_book_data[index])
 
     return book_recommendations
+
 
 def recommended_books_To_Tittle_array(recommended_books):
     if recommended_books is None:
@@ -47,12 +48,13 @@ def recommended_books_To_Tittle_array(recommended_books):
     titles = [recommendation[0] for recommendation in recommended_books]
 
     return titles
-    
-def recommend_books_ForAPI(movie_query, k_recommendations):
+
+
+def recommend_books_ForAPI(book_query, k_recommendations):
     raw_book_data = []
 
     # Using the CSV reader keeps us from skipping rows that have extra commas
-    with open('../datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
+    with open('./datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
         csv_reader = csv.reader(md)
         # Discard the first line (headings)
         next(csv_reader)
@@ -69,11 +71,10 @@ def recommend_books_ForAPI(movie_query, k_recommendations):
         data_row = list(map(float, row[1:]))
         books_recommendation_data.append(data_row)
 
-
     # Use the KNN algorithm to get the 5 books that are most
     # similar to The Post.
     recommendation_indices, _ = knn(
-        books_recommendation_data, movie_query, k=k_recommendations,
+        books_recommendation_data, book_query, k=k_recommendations,
         distance_fn=euclidean_distance, choice_fn=lambda x: None
     )
 
@@ -83,24 +84,24 @@ def recommend_books_ForAPI(movie_query, k_recommendations):
 
     return book_recommendations
 
+
 if __name__ == '__main__':
-    
+
     vector_creator = VectorCreator()
-    
+
     user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-    ratings_file = '../datasets/ratings.csv'
-    books_file = '../datasets/author_publisher_label_encoded_books.csv'
-    
+    ratings_file = './datasets/ratings.csv'
+    books_file = './datasets/author_publisher_label_encoded_books.csv'
+
     #the_post = [19443,1692,0.915000,0.000658,0.815385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # feature vector for The Post
     the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
-    
+
     # Custom logic should be go to not working correctly
     #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
-    
-    recommended_books = recommend_books(movie_query=the_post, k_recommendations=5)
+
+    recommended_books = recommend_books(book_query=the_post, k_recommendations=5)
 
     print(str(the_post))
     # Print recommended movie titles
     for recommendation in recommended_books:
         print(recommendation[0])
-

@@ -1,5 +1,5 @@
 from typing import Counter
-from feature_vector_interface import VectorCreatorInterface
+from knn.feature_vector_interface import VectorCreatorInterface
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
 
 class VectorCreator(VectorCreatorInterface):
@@ -97,8 +97,8 @@ vector_creator = VectorCreator()
 
 # Usage example
 user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-ratings_file = '../datasets/ratings.csv'
-books_file = '../datasets/author_publisher_label_encoded_books.csv'
+ratings_file = './datasets/ratings.csv'
+books_file = './datasets/author_publisher_label_encoded_books.csv'
 
 modes = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
 print("Modes of each column:", modes)

@@ -1,10 +1,14 @@
 import React from "react";
 import image from "./images/stack-of-books.svg";
 import magnifyingGlass from "./images/magnifying-glass.svg";
+import {useStore} from "./store/searchStore.ts";
+import useSearchForBooks from "./hooks/useSearchForBooks.ts";
 
 function RecommendationPageHeader() {
 
-    const [searchTerm, setSearchTerm] = React.useState<string>('');
+    const searchInput = useStore(state => state.searchInput);
+    const setSearchInput = useStore(state => state.setSearchInput);
+    const handleSearch = useSearchForBooks();
 
     return (
         <div className="row">
@@ -26,7 +30,8 @@ function RecommendationPageHeader() {
                             <img src={magnifyingGlass} alt="Magnifying Glass" className="input-class-name"/>
                             <input type="text" className="form-control" placeholder="Search for a book ..."
                                    style={{borderRadius: '2rem', height: '3.2rem', textIndent: '1rem'}}
-                                      value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)}
+                                      value={searchInput} onChange={(e) => setSearchInput(e.target.value)}
+                                   onKeyDown={event => handleSearch.handleSearch(event)}
                             />
                         </div>
                     </div>

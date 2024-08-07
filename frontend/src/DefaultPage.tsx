@@ -14,7 +14,7 @@ function DefaultPage() {
                         <h1 className="text-center text-white" style={windowWidth > LG_SCREEN_WIDTH_PX ? {
                             fontSize: '5rem',
                             fontWeight: '700'
-                        } : {fontSize: '3rem',  fontWeight: '700'}}>Looking
+                        } : {fontSize: '3rem',  fontWeight: '600'}}>Looking
                             for books?</h1>
                     </div>
                     <div className="d-flex justify-content-center align-items-center">

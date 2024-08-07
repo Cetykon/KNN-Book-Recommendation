@@ -20,7 +20,7 @@ def top_ten_user_ids(file_path):
     return top_ten
 
 # Example usage
-file_path = '../datasets/ratings.csv'
+file_path = './datasets/ratings.csv'
 top_ten = top_ten_user_ids(file_path)
 if top_ten:
     print("Top 10 most frequent User_ids:")

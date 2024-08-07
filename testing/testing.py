@@ -50,7 +50,7 @@ the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, rating
 # Custom logic should be go to not working correctly
 #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
 
-recommended_books = recommend_books(movie_query=the_post, k_recommendations=100)
+recommended_books = recommend_books(book_query=the_post, k_recommendations=100)
 
 print("book Recommendations")
 recommend_tittles = recommended_books_To_Tittle_array(recommended_books)

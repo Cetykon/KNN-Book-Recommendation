@@ -28,8 +28,8 @@ def get_user_reviews_book_data(user_id, ratings_file, books_file):
 
 # Usage example
 user_id = 'A3M174IC0VXOS2'  # Replace with the actual UserID
-ratings_file = '../datasets/ratings.csv'
-books_file = '../datasets/author_publisher_label_encoded_books.csv'
+ratings_file = './datasets/ratings.csv'
+books_file = './datasets/author_publisher_label_encoded_books.csv'
 
 book_data_array = get_user_reviews_book_data(user_id, ratings_file, books_file)
 print(book_data_array)
