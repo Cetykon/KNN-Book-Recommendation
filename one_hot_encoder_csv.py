@@ -1,5 +1,10 @@
 import pandas as pd
+# use MultiLabel for fields with arrays
 from sklearn.preprocessing import MultiLabelBinarizer
+# use one HotEncoder for regular fields
+from sklearn.preprocessing import OneHotEncoder
+# use to Label Encode
+from sklearn.preprocessing import LabelEncoder
 import ast
 
 def hot_encode_categories():
@@ -38,7 +43,7 @@ def hot_encode_categories():
     
 def hot_encode_authors():
     
-    df = pd.read_csv('modified_data_1.csv')
+    df = pd.read_csv('books 4.csv')
 
     # Display the first 10 rows of the DataFrame
     print("Original DataFrame:")
@@ -51,29 +56,53 @@ def hot_encode_authors():
         except (ValueError, SyntaxError):
             return []
 
-    df['authors'] = df['authors'].apply(parse_list)
+    df['Authors'] = df['Authors'].apply(parse_list)
 
     # Apply OneHotEncoder using MultiLabelBinarizer
     mlb = MultiLabelBinarizer()
-    authors_encoded = mlb.fit_transform(df['authors'])
+    authors_encoded = mlb.fit_transform(df['Authors'])
 
     # Convert the result to a DataFrame and set the column names
     authors_df = pd.DataFrame(authors_encoded, columns=mlb.classes_)
 
     # Concatenate the original DataFrame with the encoded categories and drop the original 'authors' column
-    df = pd.concat([df, authors_df], axis=1).drop(columns=['authors'])
+    df = pd.concat([df, authors_df], axis=1).drop(columns=['Authors'])
 
     # Display the first 10 rows of the modified DataFrame
     print("Modified DataFrame:")
     print(df.head(10))
 
     # Export the modified DataFrame to a new CSV file
-    df.to_csv('modified_data_2.csv', index=False)
+    df.to_csv('booksV4_HotEncoded_Authors.csv', index=False)
+    
+def hot_encode_publishers():
+    
+    df = pd.read_csv('books3.csv')
+    
+    print("Original DataFrame:")
+    print(df.head(10))
+
+    # Taking a look at every unique value
+    print(df['Publisher'].unique())
+
+    # OneHotEncoder setup and transformation
+    ohe = OneHotEncoder(handle_unknown='ignore', sparse_output = False).set_output(transform='pandas')
+    ohetransform = ohe.fit_transform(df[['Publisher']])
+
+    # Concatenating and dropping columns
+    df = pd.concat([df, ohetransform], axis=1).drop(columns=['Publisher'])
+    print("Modified DataFrame:")
+    print(df.head(10))
+    
+    # Export the modified DataFrame to a new CSV file
+    df.to_csv('books_publisher_hot_encode.csv', index=False)
+    
               
 def main():
     
-    hot_encode_categories() # Their is a lot of categories and some are even sentences, so dropping records with this over the top categories may need to be dropped.
+    #hot_encode_categories() # Their is a lot of categories and some are even sentences, so dropping records with this over the top categories may need to be dropped.
     hot_encode_authors() # Not enough memory allocation to process, I have 32gb of ram running at 6400Mhz
+    #hot_encode_publishers()
     
 if __name__ == "__main__":
     main()

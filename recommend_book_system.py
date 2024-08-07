@@ -1,42 +1,107 @@
-from knn_implementation import knn, euclidean_distance
+import csv
 
-def recommend_movies(movie_query, k_recommendations):
-    raw_movies_data = []
-    with open('movies_recommendation_data.csv', 'r') as md:
+import numpy as np
+from getBooks_based_on_user_testing import get_user_reviews_book_data
+from knn_implementation import knn, euclidean_distance
+from feature_vector_implementation import VectorCreator
+
+def recommend_books(movie_query, k_recommendations):
+    raw_book_data = []
+
+    # Using the CSV reader keeps us from skipping rows that have extra commas
+    with open('author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
+        csv_reader = csv.reader(md)
         # Discard the first line (headings)
-        next(md)
+        next(csv_reader)
 
         # Read the data into memory
-        for line in md.readlines():
-            data_row = line.strip().split(',')
-            raw_movies_data.append(data_row)
+        for row in csv_reader:
+            raw_book_data.append(row)
 
     # Prepare the data for use in the knn algorithm by picking
     # the relevant columns and converting the numeric columns
     # to numbers since they were read in as strings
-    movies_recommendation_data = []
-    for row in raw_movies_data:
-        data_row = list(map(float, row[2:]))
-        movies_recommendation_data.append(data_row)
+    books_recommendation_data = []
+    for row in raw_book_data:
+        data_row = list(map(float, row[1:]))
+        books_recommendation_data.append(data_row)
 
-    # Use the KNN algorithm to get the 5 movies that are most
+
+    # Use the KNN algorithm to get the 5 books that are most
     # similar to The Post.
     recommendation_indices, _ = knn(
-        movies_recommendation_data, movie_query, k=k_recommendations,
+        books_recommendation_data, movie_query, k=k_recommendations,
         distance_fn=euclidean_distance, choice_fn=lambda x: None
     )
 
-    movie_recommendations = []
+    book_recommendations = []
     for _, index in recommendation_indices:
-        movie_recommendations.append(raw_movies_data[index])
+        book_recommendations.append(raw_book_data[index])
 
-    return movie_recommendations
+    return book_recommendations
+
+def recommended_books_To_Tittle_array(recommended_books):
+    if recommended_books is None:
+        print("Warning: recommended_books is None")
+        return []
+
+    titles = [recommendation[0] for recommendation in recommended_books]
+    print("Extracted Titles:", titles)
+    return titles
+    
+def recommend_books_ForAPI(movie_query, k_recommendations):
+    raw_book_data = []
+
+    # Using the CSV reader keeps us from skipping rows that have extra commas
+    with open('author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
+        csv_reader = csv.reader(md)
+        # Discard the first line (headings)
+        next(csv_reader)
+
+        # Read the data into memory
+        for row in csv_reader:
+            raw_book_data.append(row)
+
+    # Prepare the data for use in the knn algorithm by picking
+    # the relevant columns and converting the numeric columns
+    # to numbers since they were read in as strings
+    books_recommendation_data = []
+    for row in raw_book_data:
+        data_row = list(map(float, row[1:]))
+        books_recommendation_data.append(data_row)
+
+
+    # Use the KNN algorithm to get the 5 books that are most
+    # similar to The Post.
+    recommendation_indices, _ = knn(
+        books_recommendation_data, movie_query, k=k_recommendations,
+        distance_fn=euclidean_distance, choice_fn=lambda x: None
+    )
+
+    book_recommendations = []
+    for _, index in recommendation_indices:
+        book_recommendations.append(raw_book_data[index])
+
+    return book_recommendations
 
 if __name__ == '__main__':
-    the_post = [3, 0, 1, 0, 1, 0, 0, 0, 0] # feature vector for The Post
-    recommended_movies = recommend_movies(movie_query=the_post, k_recommendations=5)
-
+    
+    vector_creator = VectorCreator()
+    
+    user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
+    ratings_file = 'ratingsV3.csv'
+    books_file = 'author_publisher_label_encoded_books.csv'
+    
+    #the_post = [19443,1692,0.915000,0.000658,0.815385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # feature vector for The Post
+    the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
+    
+    # Custom logic should be go to not working correctly
+    #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
+    
+    recommended_books = recommend_books(movie_query=the_post, k_recommendations=5)
+   
     print(str(the_post))
     # Print recommended movie titles
-    for recommendation in recommended_movies:
-        print(recommendation[1])
+    for recommendation in recommended_books:
+        print(recommendation[0])
+
