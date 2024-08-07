@@ -4,6 +4,10 @@ export interface Book {
     imageLink?: string;
 }
 
+export interface BookForRecommendation {
+    title: string;
+}
+
 export interface Store {
     searchInput: string;
     setSearchInput: (input: string) => void;
@@ -13,4 +17,6 @@ export interface Store {
     setFilteredBooks: (filteredBooks:Book[]) => void;
     selectedBooks: Book[];
     setSelectedBooks: (selectedBooks:Book[]) => void;
+    recommendations: Book[];
+    setRecommendations: (recommendations:Book[]) => void;
 }

@@ -11,4 +11,6 @@ export const useStore = create<Store>(set => ({
     setFilteredBooks: (filteredBooks:Book[]) => set(() => ({ filteredBooks })),
     selectedBooks: [],
     setSelectedBooks: (selectedBooks:Book[]) => set(() => ({ selectedBooks })),
+    recommendations: [],
+    setRecommendations: (recommendations:Book[]) => set(() => ({ recommendations }))
 }));

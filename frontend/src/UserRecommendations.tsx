@@ -1,15 +1,11 @@
 import React from "react";
-import rateIcon from './images/rate-icon.svg';
-import {Card, Col, Container, Row} from "react-bootstrap";
 import {Book} from "./interfaces/recommendationInterfaces.ts";
+import {Card, Col, Container, Row} from "react-bootstrap";
 import {useStore} from "./store/searchStore.ts";
 
-function SearchResults() {
+function UserRecommendations() {
 
-    const books = useStore((state) => state.filteredBooks);
-    const selectedBooks = useStore((state) => state.selectedBooks);
-    const setSelectedBooks = useStore((state) => state.setSelectedBooks);
-
+    const recommendedBooks = useStore((state) => state.recommendations);
 
     const card = (params:Book, index: number) => {
         return (
@@ -18,18 +14,6 @@ function SearchResults() {
                     <Card.Body style={{border: 'none'}}>
                         <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
                     </Card.Body>
-                    <Card.Footer style={{backgroundColor: 'white', border: 'none'}}>
-                        <button className="btn rate-button d-flex justify-content-center align-items-center"
-                        onClick={() => {
-                            if(!selectedBooks.includes(params)) {
-                                setSelectedBooks([...selectedBooks, params]);
-                            }
-                        }}
-                        >
-                            <img src={rateIcon} style={{paddingRight: '.5rem'}} alt="Rate Icon" />
-                            Favorite
-                        </button>
-                    </Card.Footer>
                 </Card>
             </Col>
         );
@@ -42,7 +26,7 @@ function SearchResults() {
             </div>
             <Container>
                 <Row>
-                    {books.map ((book, index) => {
+                    {recommendedBooks.map ((book, index) => {
                         if (index < 6 ){
                             return card(book, index);
                         }
@@ -53,4 +37,4 @@ function SearchResults() {
     );
 }
 
-export default React.memo(SearchResults);
+export default React.memo(UserRecommendations);
