@@ -34,4 +34,4 @@ def encode_publisher(input_file, output_file):
             csv_writer.writerow(encoded_row)
 
 # Example usage
-encode_publisher('author_label_encoded_books.csv', 'author_publisher_label_encoded_books.csv')
+encode_publisher('author_label_encoded_books.csv', '../datasets/author_publisher_label_encoded_books.csv')

@@ -1,0 +1,46 @@
+
+.default-page {
+    font-family: 'Mona Sans', sans-serif;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    min-height: 92.8vh;
+    background: linear-gradient(113deg, #15D4B2 0%, #5C58FF 100%);
+}
+
+.recommendation-page {
+    width: 100%;
+    background-color: #F4F4F4
+}
+
+.input-icon {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.input-icon .input-class-name {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-icon input {
+    padding-left: 2.5rem; /* Adjust as needed */
+}
+
+.rate-button {
+    border: 1px solid #4186E2;
+    color: #4186E2;
+    width: 100%;
+    border-radius: 18px;
+}
+
+.rate-button:hover {
+    border: 1px solid #4186E2;
+    color: #4186E2;
+    background-color: #e8e7e7;
+    width: 100%;
+    border-radius: 18px;
+}

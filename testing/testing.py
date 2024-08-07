@@ -1,9 +1,8 @@
-from typing import Counter
 import pandas as pd
 
-from feature_vector_implementation import VectorCreator
+from knn.feature_vector_implementation import VectorCreator
 from getBooks_based_on_user_testing import get_user_reviews_book_data
-from recommend_book_system import recommend_books, recommended_books_To_Tittle_array
+from knn.recommend_book_system import recommend_books, recommended_books_To_Tittle_array
 
 def get_user_review_titles(user_id, ratings_file):
     # Load the ratings CSV file into a dataframe
@@ -41,8 +40,8 @@ vector_creator = VectorCreator()
 
 # Usage example
 user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-ratings_file = 'ratingsV3.csv'
-books_file = 'author_publisher_label_encoded_books.csv'
+ratings_file = '../datasets/ratings.csv'
+books_file = '../datasets/author_publisher_label_encoded_books.csv'
 
 
     
