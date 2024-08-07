@@ -71,6 +71,6 @@ ratings_array = [
     ['A1B2C3D4E5F6G7', 'Watchmen', 5.0]
 ]
 
-books_file = '../datasets/author_publisher_label_encoded_books.csv'
+books_file = './datasets/author_publisher_label_encoded_books.csv'
 
 get_user_reviews_book_dataAPI('A3M174IC0VXOS2', ratings_array, books_file)
