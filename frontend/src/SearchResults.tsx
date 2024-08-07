@@ -13,10 +13,12 @@ function SearchResults() {
 
     const card = (params:Book, index: number) => {
         return (
-            <Col sm={6} lg={3} xl={2} className="p-2" key={index}>
-                <Card border="0" style={{backgroundColor: 'white'}}>
-                    <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
-                    <Card.Footer style={{backgroundColor: 'white'}}>
+            <Col sm={6} lg={3} xl={2} className="p-1" key={index}>
+                <Card border="0" style={{backgroundColor: 'white', height: '18rem'}}>
+                    <Card.Body style={{border: 'none'}}>
+                        <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
+                    </Card.Body>
+                    <Card.Footer style={{backgroundColor: 'white', border: 'none'}}>
                         <button className="btn rate-button d-flex justify-content-center align-items-center"
                         onClick={() => {
                             if(!selectedBooks.includes(params)) {
@@ -25,7 +27,7 @@ function SearchResults() {
                         }}
                         >
                             <img src={rateIcon} style={{paddingRight: '.5rem'}} alt="Rate Icon" />
-                            Rate
+                            Favorite
                         </button>
                     </Card.Footer>
                 </Card>

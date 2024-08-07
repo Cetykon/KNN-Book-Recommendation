@@ -8,7 +8,7 @@ function UserBookSelections() {
     const card = (params:Book, index: number) => {
         return (
             <Col sm={6} lg={3} xl={2} className="p-2" key={index}>
-                <Card border="0" style={{backgroundColor: 'white'}}>
+                <Card border="0" style={{backgroundColor: 'white',height: '14rem'}}>
                     <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
                 </Card>
             </Col>
@@ -24,9 +24,7 @@ function UserBookSelections() {
                 <Container>
                     <Row>
                         {selectedBooks.map ((book, index) => {
-                            if (index < 6 ){
-                                return card(book, index);
-                            }
+                            return card(book, index);
                         })}
                     </Row>
                 </Container>
