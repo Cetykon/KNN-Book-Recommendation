@@ -20,7 +20,7 @@ export function useGetRecommendations() {
             });
         const data = await response.json();
         if (response.ok) {
-            setRecommendations(data.recommendations);
+            setRecommendations(data.map((data:string) => ({title: data[0]})));
             setFilteredBooks([]);
         } else {
             alert('Unable to get recommendations. Try again later.');

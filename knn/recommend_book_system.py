@@ -80,7 +80,10 @@ def recommend_books_ForAPI(book_query, k_recommendations):
 
     book_recommendations = []
     for _, index in recommendation_indices:
-        book_recommendations.append(raw_book_data[index])
+        if index < len(raw_book_data):
+            book_recommendations.append(raw_book_data[index])
+        else:
+            print("Warning: Index out of bounds")
 
     return book_recommendations
 

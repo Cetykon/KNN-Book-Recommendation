@@ -6,7 +6,32 @@ class VectorCreator(VectorCreatorInterface):
     
     # note: I will make a combination of mode and average to get an ideal vector method
     # Also I would like to also give recommendation based on category if enough data is available
-    
+
+    def mode_vector_For_API_Vectors_With_No_Rating(self, booksReadVectorsArray):
+
+        # Transpose the array to convert columns into rows
+        # this way we can easily iterate over each column, and even allowing us to use math functions
+        transposed_array = list(zip(*booksReadVectorsArray))
+
+        modes = []
+
+        for column in transposed_array:
+            # Using a dictionary to count the frequency of each element in each column
+            frequency = {}
+
+            # Count the frequency of each element in the column
+            for value in column:
+                if value in frequency:
+                    frequency[value] += 1
+                else:
+                    frequency[value] = 1
+
+            # Find the mode (the element with the highest frequency)
+            mode = max(frequency, key=frequency.get)
+            modes.append(mode)
+
+        return modes
+
     def mode_vector(self, booksReadVectorsArray):
         
         # Transpose the array to convert columns into rows

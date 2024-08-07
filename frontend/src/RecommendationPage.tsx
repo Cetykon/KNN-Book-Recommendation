@@ -19,9 +19,10 @@ function RecommendationPage() {
       <div className="d-flex justify-content-center recommendation-page">
           <div className="container p-5">
               <RecommendationPageHeader />
-              <SearchResults />
-              {recommendedBooks && recommendedBooks.length > 0 && (
+              {recommendedBooks && recommendedBooks.length > 0 ? (
                   <UserRecommendations />
+              ) : (
+                  <SearchResults />
               )}
               <UserBookSelections />
               <div className="d-flex justify-content-center align-items-center pt-4">
