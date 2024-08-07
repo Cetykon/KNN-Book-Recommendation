@@ -45,7 +45,7 @@ def recommended_books_To_Tittle_array(recommended_books):
         return []
 
     titles = [recommendation[0] for recommendation in recommended_books]
-    print("Extracted Titles:", titles)
+
     return titles
     
 def recommend_books_ForAPI(movie_query, k_recommendations):
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
     
     recommended_books = recommend_books(movie_query=the_post, k_recommendations=5)
-   
+
     print(str(the_post))
     # Print recommended movie titles
     for recommendation in recommended_books:
