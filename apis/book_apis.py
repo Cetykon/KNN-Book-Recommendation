@@ -23,7 +23,7 @@ def get_books():
                 next(csv_reader)
 
                 for row in csv_reader:
-                    books.append({"title": row[0], "imageLink": row[6]})
+                    books.append({"title": row[0], "AverageRating": row[5], "imageLink": row[6]})
 
             return jsonify(books)
         except Exception as e:

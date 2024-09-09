@@ -9,7 +9,7 @@ function UserBookSelections() {
         return (
             <Col sm={6} lg={3} xl={2} className="p-2" key={index}>
                 <Card border="0" style={{backgroundColor: 'white',height: '16rem'}}>
-                    <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white'}}/>
+                    <Card.Img src={params.imageLink} alt={params.title} style={{border: 'none', backgroundColor: 'white', height: '16rem'}}/>
                 </Card>
             </Col>
         );
@@ -17,7 +17,7 @@ function UserBookSelections() {
 
     return (
         <div className="pt-4">
-            <div className="p-3" style={{border: '1px solid #DEDDDD', borderRadius: '12px', backgroundColor: 'white'}}>
+            <div className="p-4" style={{border: '1px solid #DEDDDD', borderRadius: '12px', backgroundColor: 'white'}}>
                 <div>
                     <h3>Your Selections</h3>
                 </div>

@@ -1,6 +1,7 @@
 
 export interface Book {
     title: string;
+    AverageRating: number;
     imageLink?: string;
 }
 
