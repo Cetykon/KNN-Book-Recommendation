@@ -1,2 +1,5 @@
 To use the Api example:
-Pip install flask
+pip install flask
+
+Other Installs:
+pip install pandas
