@@ -4,12 +4,11 @@ from knn.knn_implementation import euclidean_distance, knn
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
 from knn.feature_vector_implementation import VectorCreator
 
-
-def recommend_books(book_query, k_recommendations):
+def get_book_data_from_csv(file_path):
     raw_book_data = []
-
+    
     # Using the CSV reader keeps us from skipping rows that have extra commas
-    with open('./datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
+    with open(file_path, 'r', encoding='utf-8') as md:
         csv_reader = csv.reader(md)
         # Discard the first line (headings)
         next(csv_reader)
@@ -17,10 +16,16 @@ def recommend_books(book_query, k_recommendations):
         # Read the data into memory
         for row in csv_reader:
             raw_book_data.append(row)
+    
+    return raw_book_data
 
-    # Prepare the data for use in the knn algorithm by picking
-    # the relevant columns and converting the numeric columns
-    # to numbers since they were read in as strings
+
+def recommend_books(book_query, k_recommendations):
+    
+    raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
+
+    # Prepare the data for use in the knn algorithm by picking the relevant columns
+    # converting the numeric columns to numbers since they were read in as strings
     books_recommendation_data = []
     for row in raw_book_data:
         data_row = list(map(float, row[1:]))
@@ -51,17 +56,8 @@ def recommended_books_To_Tittle_array(recommended_books):
 
 
 def recommend_books_ForAPI(book_query, k_recommendations):
-    raw_book_data = []
-
-    # Using the CSV reader keeps us from skipping rows that have extra commas
-    with open('./datasets/author_publisher_label_encoded_books.csv', 'r', encoding='utf-8') as md:
-        csv_reader = csv.reader(md)
-        # Discard the first line (headings)
-        next(csv_reader)
-
-        # Read the data into memory
-        for row in csv_reader:
-            raw_book_data.append(row)
+    
+    raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
 
     # Prepare the data for use in the knn algorithm by picking
     # the relevant columns and converting the numeric columns

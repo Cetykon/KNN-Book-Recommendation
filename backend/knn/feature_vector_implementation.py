@@ -3,19 +3,21 @@ from knn.feature_vector_interface import VectorCreatorInterface
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
 
 class VectorCreator(VectorCreatorInterface):
+    #Replace Temp with Query
+    
+    # Transpose the array to convert columns into rows
+    # this way we can easily iterate over each column, and even allowing us to use math functions
+    def transpose_array(self, array):
+        return list(zip(*array))
+    
     
     # note: I will make a combination of mode and average to get an ideal vector method
     # Also I would like to also give recommendation based on category if enough data is available
-
     def mode_vector_For_API_Vectors_With_No_Rating(self, booksReadVectorsArray):
-
-        # Transpose the array to convert columns into rows
-        # this way we can easily iterate over each column, and even allowing us to use math functions
-        transposed_array = list(zip(*booksReadVectorsArray))
 
         modes = []
 
-        for column in transposed_array:
+        for column in self.transpose_array(booksReadVectorsArray):
             # Using a dictionary to count the frequency of each element in each column
             frequency = {}
 
@@ -34,13 +36,9 @@ class VectorCreator(VectorCreatorInterface):
 
     def mode_vector(self, booksReadVectorsArray):
         
-        # Transpose the array to convert columns into rows
-        # this way we can easily iterate over each column, and even allowing us to use math functions
-        transposed_array = list(zip(*booksReadVectorsArray))
-        
         modes = []
         
-        for column in transposed_array:
+        for column in self.transpose_array(booksReadVectorsArray):
             # Using a dictionary to count the frequency of each element in each column
             frequency = {}
             
@@ -60,19 +58,15 @@ class VectorCreator(VectorCreatorInterface):
         
         return modes
 
-    def average_vector(self, array):
-        # Transpose the array to convert columns into rows
-        transposed_array = list(zip(*array))
+    def average_vector(self, booksReadVectorsArray):
         
         averages = []
         
-        for column in transposed_array:
+        for column in self.transpose_array(booksReadVectorsArray):
             # Calculate the average for the column
             column_average = sum(column) / len(column)
             # add the column average to the array/vector
             averages.append(column_average)
-        
-        
         
         return averages
     
@@ -82,7 +76,7 @@ class VectorCreator(VectorCreatorInterface):
     # do this till you reach the last value. 
     def custom_logic(self, booksReadVectorsArray):
         # Transpose the array to convert columns into rows
-        transposed_array = list(zip(*booksReadVectorsArray))
+        transposed_array = self.transpose_array(booksReadVectorsArray)
         
         modes = []
         

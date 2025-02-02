@@ -26,13 +26,8 @@ def get_user_reviews_book_data(user_id, ratings_file, books_file):
     return book_data_array
 
 
-def get_user_reviews_book_dataAPI_no_user_Review(ratings_array, books_file):
-    # Convert ratings array to dataframe
-    ratings_df = pd.DataFrame(ratings_array, columns=['Title'])
-
-    # Load books file into dataframe
-    books_df = pd.read_csv(books_file)
-
+def get_book_details(ratings_df, books_df):
+    
     # Extract titles from the ratings array
     review_titles = ratings_df['Title'].unique()
 
@@ -44,11 +39,22 @@ def get_user_reviews_book_dataAPI_no_user_Review(ratings_array, books_file):
 
     # Convert to a multi-dimensional array
     book_data_array = book_data.values.tolist()
+    
+    return book_data_array
+
+def get_user_reviews_book_dataAPI_no_user_Review(books_array, csv_books_file):
+    # Convert books array to dataframe
+    ratings_df = pd.DataFrame(books_array, columns=['Title'])
+
+    # Load books file into dataframe
+    books_df = pd.read_csv(csv_books_file)
+    
+    book_array_details = get_book_details(ratings_df, books_df)
 
     # Print the book data array
-    print(book_data_array)
+    print(book_array_details)
 
-    return book_data_array
+    return book_array_details
 
 def get_user_reviews_book_dataAPI(user_id, ratings_array, books_file):
     # Convert ratings array to dataframe

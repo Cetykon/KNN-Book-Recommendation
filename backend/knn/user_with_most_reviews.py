@@ -1,7 +1,8 @@
 import csv
 from collections import Counter
 
-def top_ten_user_ids(file_path):
+def strip_to_only_userID(self, file_path):
+    
     user_ids = []
 
     with open(file_path, mode='r', encoding='utf-8') as file:
@@ -10,7 +11,14 @@ def top_ten_user_ids(file_path):
             user_id = row['UserID'].strip()
             if user_id:  # Only add non-empty user_ids
                 user_ids.append(user_id)
+                
+    return user_ids
+    
 
+def top_ten_user_ids(file_path):
+    
+    user_ids = strip_to_only_userID()
+    
     # Count occurrences of each user_id
     user_id_counts = Counter(user_ids)
     
