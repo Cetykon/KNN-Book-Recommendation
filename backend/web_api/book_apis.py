@@ -11,7 +11,7 @@ from flask_cors import CORS
 
 from knn.feature_vector_implementation import VectorCreator
 from knn.recommend_book_system import recommend_books_ForAPI, recommend_books
-from testing.getBooks_based_on_user_testing import get_user_reviews_book_dataAPI_no_user_Review
+from testing.getBooks_based_on_user_testing import get_input_books_data
 
 app = Flask(__name__)
 # for all routes
@@ -47,7 +47,7 @@ def get_recommendations():
             print(data)
             vector_creator = VectorCreator()
             books_file = './datasets/author_publisher_label_encoded_books.csv'
-            recommended_books = recommend_books_ForAPI(vector_creator.mode_vector_For_API_Vectors_With_No_Rating(get_user_reviews_book_dataAPI_no_user_Review(titles, books_file)), 12)
+            recommended_books = recommend_books_ForAPI(vector_creator.mode_array_for_API(get_input_books_data(titles, books_file)), 12)
 
             return jsonify(recommended_books)
         except Exception as e:

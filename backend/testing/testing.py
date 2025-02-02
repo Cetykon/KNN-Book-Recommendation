@@ -7,8 +7,7 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from knn.feature_vector_implementation import VectorCreator
-from getBooks_based_on_user_testing import get_user_reviews_book_data
-from knn.recommend_book_system import recommend_books, recommended_books_To_Tittle_array
+from knn.recommend_book_system import recommend_books
 
 def get_user_review_titles(user_id, ratings_file):
     # Load the ratings CSV file into a dataframe
@@ -42,26 +41,26 @@ def compare_matches(recommend_tittles, user_titles):
     
     
     
-vector_creator = VectorCreator()
+# vector_creator = VectorCreator()
 
-# Usage example
-user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-ratings_file = '../datasets/ratings.csv'
-books_file = '../datasets/author_publisher_label_encoded_books.csv'
+# # Usage example
+# user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
+# ratings_file = '../datasets/ratings.csv'
+# books_file = '../datasets/author_publisher_label_encoded_books.csv'
 
 
     
-the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
+# the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
 
-# Custom logic should be go to not working correctly
-#the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
+# # Custom logic should be go to not working correctly
+# #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
 
-recommended_books = recommend_books(book_query=the_post, k_recommendations=100)
+# recommended_books = recommend_books(book_query=the_post, k_recommendations=100)
 
-print("book Recommendations")
-recommend_tittles = recommended_books_To_Tittle_array(recommended_books)
-print(recommend_tittles)
-print("user Review Tittles")
-user_titles = get_user_review_titles(user_id, ratings_file)
-print(user_titles)
-compare_matches(recommend_tittles, user_titles)
+# print("book Recommendations")
+# recommend_tittles = recommended_books_To_Tittle_array(recommended_books)
+# print(recommend_tittles)
+# print("user Review Tittles")
+# user_titles = get_user_review_titles(user_id, ratings_file)
+# print(user_titles)
+# compare_matches(recommend_tittles, user_titles)

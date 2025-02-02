@@ -1,7 +1,6 @@
 import csv
 
 from knn.knn_implementation import euclidean_distance, knn
-from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
 from knn.feature_vector_implementation import VectorCreator
 
 def get_book_data_from_csv(file_path):
@@ -45,16 +44,6 @@ def recommend_books(book_query, k_recommendations):
     return book_recommendations
 
 
-def recommended_books_To_Tittle_array(recommended_books):
-    if recommended_books is None:
-        print("Warning: recommended_books is None")
-        return []
-
-    titles = [recommendation[0] for recommendation in recommended_books]
-
-    return titles
-
-
 def recommend_books_ForAPI(book_query, k_recommendations):
     
     raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
@@ -84,23 +73,23 @@ def recommend_books_ForAPI(book_query, k_recommendations):
     return book_recommendations
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    vector_creator = VectorCreator()
+#     vector_creator = VectorCreator()
 
-    user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-    ratings_file = './datasets/ratings.csv'
-    books_file = './datasets/author_publisher_label_encoded_books.csv'
+#     user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
+#     ratings_file = './datasets/ratings.csv'
+#     books_file = './datasets/author_publisher_label_encoded_books.csv'
 
-    #the_post = [19443,1692,0.915000,0.000658,0.815385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # feature vector for The Post
-    the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
+#     #the_post = [19443,1692,0.915000,0.000658,0.815385,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] # feature vector for The Post
+#     the_post = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
 
-    # Custom logic should be go to not working correctly
-    #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
+#     # Custom logic should be go to not working correctly
+#     #the_post = vector_creator.custom_logic(get_user_reviews_book_data(user_id, ratings_file, books_file))
 
-    recommended_books = recommend_books(book_query=the_post, k_recommendations=5)
+#     recommended_books = recommend_books(book_query=the_post, k_recommendations=5)
 
-    print(str(the_post))
-    # Print recommended movie titles
-    for recommendation in recommended_books:
-        print(recommendation[0])
+#     print(str(the_post))
+#     # Print recommended movie titles
+#     for recommendation in recommended_books:
+#         print(recommendation[0])

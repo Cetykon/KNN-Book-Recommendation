@@ -1,6 +1,6 @@
 from typing import Counter
 from knn.feature_vector_interface import VectorCreatorInterface
-from testing.getBooks_based_on_user_testing import get_user_reviews_book_data
+from testing.getBooks_based_on_user_testing import get_user_reviews_book_dataAPI_with_user
 
 class VectorCreator(VectorCreatorInterface):
     #Replace Temp with Query
@@ -13,7 +13,7 @@ class VectorCreator(VectorCreatorInterface):
     
     # note: I will make a combination of mode and average to get an ideal vector method
     # Also I would like to also give recommendation based on category if enough data is available
-    def mode_vector_For_API_Vectors_With_No_Rating(self, booksReadVectorsArray):
+    def mode_array_for_API(self, booksReadVectorsArray):
 
         modes = []
 
@@ -34,31 +34,7 @@ class VectorCreator(VectorCreatorInterface):
 
         return modes
 
-    def mode_vector(self, booksReadVectorsArray):
-        
-        modes = []
-        
-        for column in self.transpose_array(booksReadVectorsArray):
-            # Using a dictionary to count the frequency of each element in each column
-            frequency = {}
-            
-            # Count the frequency of each element in the column
-            for value in column:
-                if value in frequency:
-                    frequency[value] += 1
-                else:
-                    frequency[value] = 1
-            
-            # Find the mode (the element with the highest frequency)
-            mode = max(frequency, key=frequency.get)
-            modes.append(mode)
-        
-        # Dropping the last item as it is the user rating
-        modes = modes[:-1]
-        
-        return modes
-
-    def average_vector(self, booksReadVectorsArray):
+    def average_attribute(self, booksReadVectorsArray):
         
         averages = []
         
@@ -105,22 +81,22 @@ class VectorCreator(VectorCreatorInterface):
         
         return modes
 
-# using class for testing
-vector_creator = VectorCreator()
+# # using class for testing
+# vector_creator = VectorCreator()
 
-# books_read_array_examples = [
-#     [1, 2, 3, 4],
-#     [4, 5, 6, 4],
-#     [7, 8, 9, 4]
-# ]
+# # books_read_array_examples = [
+# #     [1, 2, 3, 4],
+# #     [4, 5, 6, 4],
+# #     [7, 8, 9, 4]
+# # ]
 
-# Usage example
-user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
-ratings_file = './datasets/ratings.csv'
-books_file = './datasets/author_publisher_label_encoded_books.csv'
+# # Usage example
+# user_id = 'A14OJS0VWMOSWO'  # Replace with the actual UserID
+# ratings_file = './datasets/ratings.csv'
+# books_file = './datasets/author_publisher_label_encoded_books.csv'
 
-modes = vector_creator.mode_vector(get_user_reviews_book_data(user_id, ratings_file, books_file))
-print("Modes of each column:", modes)
+# modes = vector_creator.mode_array_for_API(get_user_reviews_book_dataAPI_with_user(user_id, ratings_file, books_file))
+# print("Modes of each column:", modes)
 
 # Calculate modes and perform checks
 # modes_and_checks = vector_creator.add_modes_and_check(get_user_reviews_book_data(user_id, ratings_file, books_file))
