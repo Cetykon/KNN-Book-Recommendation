@@ -3,8 +3,6 @@ from knn.feature_vector_interface import VectorCreatorInterface
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_dataAPI_with_user
 
 class VectorCreator(VectorCreatorInterface):
-    #Replace Temp with Query
-    
     # Transpose the array to convert columns into rows
     # this way we can easily iterate over each column, and even allowing us to use math functions
     def transpose_array(self, array):
