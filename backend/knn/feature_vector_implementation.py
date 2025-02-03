@@ -3,15 +3,11 @@ from knn.feature_vector_interface import VectorCreatorInterface
 from testing.getBooks_based_on_user_testing import get_user_reviews_book_dataAPI_with_user
 
 class VectorCreator(VectorCreatorInterface):
-    # Transpose the array to convert columns into rows
-    # this way we can easily iterate over each column, and even allowing us to use math functions
+    # Transpose the array allowing us to use math functions
     def transpose_array(self, array):
         return list(zip(*array))
     
-    
-    # note: I will make a combination of mode and average to get an ideal vector method
-    # Also I would like to also give recommendation based on category if enough data is available
-    def mode_array_for_API(self, booksReadVectorsArray):
+    def mode_book_array_for_API(self, booksReadVectorsArray):
 
         modes = []
 
@@ -32,7 +28,7 @@ class VectorCreator(VectorCreatorInterface):
 
         return modes
 
-    def average_attribute(self, booksReadVectorsArray):
+    def average_attribute_book_array(self, booksReadVectorsArray):
         
         averages = []
         
@@ -48,7 +44,7 @@ class VectorCreator(VectorCreatorInterface):
     # then check the last value of the array if it's bigger then 3, 
     # the go on column 6 find if 1 has appeared more than 3 time is it has add it to the array, 
     # do this till you reach the last value. 
-    def custom_logic(self, booksReadVectorsArray):
+    def custom_logic_book_array(self, booksReadVectorsArray):
         # Transpose the array to convert columns into rows
         transposed_array = self.transpose_array(booksReadVectorsArray)
         

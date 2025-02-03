@@ -1,6 +1,6 @@
 import pandas as pd
 
-def get_book_details(ratings_df, books_df):
+def extract_book_details(ratings_df, books_df):
     
     # Extract titles from the ratings array
     review_titles = ratings_df['Title'].unique()
@@ -23,7 +23,7 @@ def get_input_books_data(books_array, csv_books_file):
     # Load books file into dataframe
     books_df = pd.read_csv(csv_books_file)
     
-    book_array_details = get_book_details(ratings_df, books_df)
+    book_array_details = extract_book_details(ratings_df, books_df)
 
     # Print the book data array
     print(book_array_details)

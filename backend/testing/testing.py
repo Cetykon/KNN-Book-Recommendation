@@ -9,7 +9,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from knn.feature_vector_implementation import VectorCreator
 from knn.recommend_book_system import recommend_books
 
-def get_user_review_titles(user_id, ratings_file):
+def get_titles_a_user_reviewed(user_id, ratings_file):
     # Load the ratings CSV file into a dataframe
     ratings_df = pd.read_csv(ratings_file)
 
@@ -22,7 +22,7 @@ def get_user_review_titles(user_id, ratings_file):
     return review_titles.tolist()
 
 
-def compare_matches(recommend_tittles, user_titles):
+def compare_user_review_tittles_to_recommended(recommend_tittles, user_titles):
 
     match_count = 0
 

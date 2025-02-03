@@ -38,7 +38,6 @@ def get_books():
 
 @app.route('/api/v1/recommend-me', methods=['POST'])
 def get_recommendations():
-    books = []
 
     if request.method == 'POST':
         try:
