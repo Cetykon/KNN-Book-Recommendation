@@ -18,18 +18,21 @@ def get_book_data_from_csv(file_path):
     
     return raw_book_data
 
-
-def recommend_books(book_query, k_recommendations):
-    
-    raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
-
-    # Prepare the data for use in the knn algorithm by picking the relevant columns
-    # converting the numeric columns to numbers since they were read in as strings
+def convert_string_columns_to_numbers(raw_book_data):
     books_recommendation_data = []
     for row in raw_book_data:
         data_row = list(map(float, row[1:]))
         books_recommendation_data.append(data_row)
+        
+    return books_recommendation_data
+    
 
+def recommend_books(book_query, k_recommendations):
+    
+    raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
+    # converting read in as strings to numbers
+    books_recommendation_data = convert_string_columns_to_numbers(raw_book_data)
+    
     # Use the KNN algorithm to get the 5 books that are most
     # similar to The Post.
     recommendation_indices, _ = knn(
@@ -47,15 +50,9 @@ def recommend_books(book_query, k_recommendations):
 def recommend_books_ForAPI(book_query, k_recommendations):
     
     raw_book_data = get_book_data_from_csv('./datasets/author_publisher_label_encoded_books.csv')
-
-    # Prepare the data for use in the knn algorithm by picking
-    # the relevant columns and converting the numeric columns
-    # to numbers since they were read in as strings
-    books_recommendation_data = []
-    for row in raw_book_data:
-        data_row = list(map(float, row[1:]))
-        books_recommendation_data.append(data_row)
-
+    # converting read in as strings to numbers
+    books_recommendation_data = books_recommendation_data = convert_string_columns_to_numbers(raw_book_data)
+    
     # Use the KNN algorithm to get the 5 books that are most
     # similar to The Post.
     recommendation_indices, _ = knn(
